@@ -1,0 +1,14 @@
+Package: HaoZheng
+Title: STAT 302 Package Building
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Hao",
+           family = "Zheng",
+           role = c("aut", "cre"),
+           email = "haoz515@uw.edu")
+Description: build a package for stat302 in UW.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
