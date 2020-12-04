@@ -18,3 +18,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(HaoZheng)
 ```
+
+```{r}
+2+2
+```
