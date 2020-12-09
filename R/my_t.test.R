@@ -10,9 +10,9 @@
 #' given by \code{alternative} and a numeric p_value
 #'
 #' @examples
-#' my_t.test(my_gapminder[,4],"two.sided",60)
-#' my_t.test(my_gapminder[,4],"less",60)
-#' my_t.test(my_gapminder[,4],"greater",60)
+#' my_t.test(my_gapminder$lifeExp,"two.sided",60)
+#' my_t.test(my_gapminder$lifeExp,"less",60)
+#' my_t.test(my_gapminder$lifeExp,"greater",60)
 #'
 #' @export
 my_t.test <- function(x, alternative, mu) {
