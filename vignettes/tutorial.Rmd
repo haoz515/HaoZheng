@@ -1,8 +1,9 @@
 ---
 title: "Project 2: HaoZheng Tutorial"
+author: "Hao Zheng"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Project 2: HaoZheng Tutorial}
+  %\VignetteIndexEntry{HaoZheng Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
