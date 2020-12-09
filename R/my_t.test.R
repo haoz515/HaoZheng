@@ -2,7 +2,7 @@
 #'
 #' This fucntion do a t.test with three input parameters
 #'
-#' @param x a data vector with numeric values
+#' @param x a data vector with numeric value
 #' @param alternative a string to specify the test(greater, less or two.sided)
 #' @param mu a value of mean of null hypothesis
 #'
