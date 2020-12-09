@@ -7,9 +7,12 @@
 #' @param mu a value of mean of null hypothesis
 #'
 #' @return a list, with mean of null hypothesis \code{mu}, and test type
-#' given by \code{alternative}
+#' given by \code{alternative} and a numeric p_value
 #'
 #' @examples
+#' my_t.test(my_gapminder[,4],"two.sided",60)
+#' my_t.test(my_gapminder[,4],"less",60)
+#' my_t.test(my_gapminder[,4],"greater",60)
 #'
 #' @export
 my_t.test <- function(x, alternative, mu) {
