@@ -15,11 +15,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r, Warning = False}
 library(HaoZheng)
 library(stringr)
 library(ggplot2)
 library(kableExtra)
+data("my_penguins")
 data("my_gapminder")
 ```
 
@@ -48,7 +49,6 @@ h4.date {
 
 
 # Part 1. R Package Development (45 points)
-
 ## Instructions
 
 For this portion of Project 2, you are being asked to develop a well-documented, well-tested, and well-explained R package.
