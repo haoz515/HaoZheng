@@ -9,7 +9,7 @@
 #' that greater than t.value
 #'
 #' @examples
-#' my_lm(my_gapminder$lifeExp ~ my_gapminder$gdpPercap + my_gapminder$continent)
+#' my_lm(my_gapminder$lifeExp ~ my_gapminder$gdpPercap + my_gapminder$continent, data = my_gapminder)
 #'
 #'
 #' @export

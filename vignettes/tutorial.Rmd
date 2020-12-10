@@ -77,9 +77,7 @@ Specifically, the vignette should have 5 parts:
   H_0: \mu &= 60,\\
   H_a: \mu &\neq 60.
   \end{align}
-```{r}
-  
-```
+
   * Demonstrate a test of the hypothesis
   \begin{align}
   H_0: \mu &= 60,\\
