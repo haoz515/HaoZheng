@@ -7,14 +7,6 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
----
-title: "Project 2: R Package Development and Data Analysis Project Pipeline"
-author: "INSERT YOUR NAME(S) HERE"
-date: ""
-output: html_document
----
-
 <!--- Begin styling code. --->
 <style type="text/css">
 /* Whole document: */
@@ -61,6 +53,18 @@ Specifically, the vignette should have 5 parts:
   * This paragraph should include instructions for how to install your package from GitHub. 
   * The install instructions should be demonstrated with code that is not evaluated (`eval = FALSE`).
   * Make sure to include a call to `library()` for your package.
+```{r install, eval = FALSE}
+devtools::install_github("haoz515/HaoZheng")
+```
+Also, we need to install the following packages to start
+```{r}
+library(HaoZheng)
+library(stringr)
+library(ggplot2)
+library(kableExtra)
+data("my_gapminder")
+data("my_penguins")
+```
 2. A tutorial for `my_t.test`
   * Use the `lifeExp` data from `my_gapminder`.
   * Demonstrate a test of the hypothesis
