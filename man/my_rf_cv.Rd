@@ -20,6 +20,5 @@ bill_depth_mm, and flipper_length_mm
 data(my_penguins)
 my_rf_cv(5)
 
-
 }
 \keyword{prediction}

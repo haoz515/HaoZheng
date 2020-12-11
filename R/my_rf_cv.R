@@ -12,6 +12,8 @@
 #' data(my_penguins)
 #' my_rf_cv(5)
 #'
+#' @import randomForest
+#'
 #'
 #' @export
 my_rf_cv <- function(k){
@@ -27,7 +29,6 @@ my_rf_cv <- function(k){
     data_train <- data %>% dplyr::filter(split != i)
     data_test <- data %>% dplyr::filter(split == i)
     # use random forest to predict
-
     model <- randomForest(body_mass_g ~ bill_length_mm
                           + bill_depth_mm
                           + flipper_length_mm, data = data_train, ntree = 100)
