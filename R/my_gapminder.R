@@ -17,8 +17,7 @@
 #'
 #' The supplemental data frame \code{\link{gapminder_unfiltered}} was not
 #' filtered on \code{year} or for complete data and has 3313 rows.
-#'
-#'#' @source \url{http://www.gapminder.org/data/}
+#' @source \url{http://www.gapminder.org/data/}
 #' @seealso \code{\link{country_colors}} for a nice color scheme for the countries
 #' @importFrom tibble tibble
 #' @examples
@@ -40,7 +39,6 @@
 #' gapminder %>%
 #'   group_by(continent) %>%
 #'   summarize(n_obs = n(), n_countries = n_distinct(country))
-#'   #'
 #' # by continent, which country experienced the sharpest 5-year drop in
 #' # life expectancy and what was the drop?
 #' gapminder %>%
@@ -53,4 +51,3 @@
 #' }
 #'
 "my_gapminder"
-
