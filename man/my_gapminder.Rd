@@ -49,6 +49,7 @@ gapminder \%>\%
 gapminder \%>\%
   group_by(continent) \%>\%
   summarize(n_obs = n(), n_countries = n_distinct(country))
+
 # by continent, which country experienced the sharpest 5-year drop in
 # life expectancy and what was the drop?
 gapminder \%>\%

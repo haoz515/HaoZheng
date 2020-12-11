@@ -4,6 +4,7 @@
 #' bill_depth_mm, and flipper_length_mm
 #'
 #' @param k a numeric value specify the number of folds
+#' @keywords prediction
 #'
 #' @return a numeric with the cross-validation error
 #'

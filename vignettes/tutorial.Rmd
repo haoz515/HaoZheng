@@ -77,22 +77,39 @@ data("my_penguins")
   \begin{align}
   H_0: \mu &= 60,\\
   H_a: \mu &\neq 60.
+  \end{align}
 ```{r}
 my_t.test(my_gapminder$lifeExp, "two.sided", 60)
 ```
-  \end{align}
+t-value, df, p-value and alternative hypothes are provided from the output. 
+Due to the reason that  P-value is greater than 0.05, 
+so we cannot reject the null hypothesis.
+  
   * Demonstrate a test of the hypothesis
   \begin{align}
   H_0: \mu &= 60,\\
   H_a: \mu &< 60.
   \end{align}
+```{r}
+my_t.test(my_gapminder$lifeExp, "less", 60)
+```
+t-value, df, p-value and alternative hypothes are provided from the output. 
+Due to the reason that  P-value is greater than 0.05, 
+so we cannot reject the null hypothesis.
+
   *  Demonstrate a test of the hypothesis
   \begin{align}
   H_0: \mu &= 60,\\
   H_a: \mu &> 60.
   \end{align}
   * For each of the tests above, carefully interpret the results using a p-value cut-off of $\alpha = 0.05$.
-  
+```{r}
+my_t.test(my_gapminder$lifeExp, "greater", 60)
+```
+t-value, df, p-value and alternative hypothes are provided from the output. 
+Due to the reason that  P-value is less than 0.05, 
+so we reject the null hypothesis.
+
 3. A tutorial for `my_lm`
   * Demonstrate a regression using `lifeExp` as your response variable and `gdpPercap` and `continent` as explanatory variables.
   * Carefully interpret the `gdpPercap` coefficient.
@@ -100,11 +117,13 @@ my_t.test(my_gapminder$lifeExp, "two.sided", 60)
   * Carefully interpret the results the `gdpPercap` hypothesis test using a p-value cut-off of $\alpha = 0.05$.
   * Use `ggplot2` to plot the Actual vs. Fitted values.
   * Interpret the Actual vs. Fitted plot and make a statement on what it tells you about model fit.
-  
-  
-```{r}
-
+```{r}  
+lm_1 <- my_lm(lifeExp ~ gdpPercap + continent, data = my_gapminder)
+lm_1
 ```
+From the output, we can see that the coefficient for gdpPercap has positive value 4.45e-4. For a 1 unit increase in gdpPercap, the lifeExp will increase about 4.45e-04.
+
+
 4. A tutorial for `my_knn_cv` using `my_penguins`.
   * Predict output class `species` using covariates `bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, and `body_mass_g`. 
   * Use $5$-fold cross validation (`k_cv = 5`).

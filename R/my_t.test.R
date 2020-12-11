@@ -6,6 +6,7 @@
 #' @param alternative a string to specify the test(greater, less or two.sided)
 #' @param mu a value of mean of null hypothesis
 #'
+#' @keywords inference
 #' @return a list, with mean of null hypothesis \code{mu}, and test type
 #' given by \code{alternative} and a numeric p_value
 #'
