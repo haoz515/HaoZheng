@@ -21,4 +21,11 @@ Depends:
     R (>= 2.10)
 VignetteBuilder: knitr
 Imports: 
-    tibble, ggplot2, kableExtra, stringr, dplyr
+    tibble,
+    ggplot2,
+    kableExtra,
+    stringr,
+    dplyr,
+    class,
+    randomForest,
+    magrittr

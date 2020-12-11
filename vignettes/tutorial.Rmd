@@ -73,6 +73,8 @@ library(kableExtra)
 library(dplyr,warn.conflicts = FALSE)
 data("my_gapminder")
 data("my_penguins")
+my_penguins_df <- my_penguins
+my_penguins_df <- na.omit(my_penguins_df)
 ```
 2. A tutorial for `my_t.test`
   * Use the `lifeExp` data from `my_gapminder`.
@@ -137,9 +139,7 @@ Here we plot the actual vs Fitted values
 ```{r}
 object <- lifeExp ~ gdpPercap + continent
 model <- model.frame(object, my_gapminder)
-# find the explanatory variable x 
 exp  <- model.matrix(object, my_gapminder)
-# find the response variable y
 res <- model.response(model) %>% as.matrix()
 ```
 ```{r}
@@ -163,7 +163,7 @@ my_plot %>%
   * Your explanation(s) should include a general description of what the process of cross-validation is doing and why it is useful.
   
 ```{r}
-# TODO: my_knn function is wrong for some output
+# TODO: my_knn function is wrong for the output
 answer <- matrix(NA, nrow = 10, ncol = 2)
 rownames(answer) <- c(1:10)
 for (i in 1:10) {

@@ -12,7 +12,8 @@
 #' that greater than t.value
 #'
 #' @examples
-#' my_knn_cv(my_penguins_df[, 3:6], penguins_df$species, 1, 5)
+#' data(my_penguins)
+#' my_knn_cv(my_penguins[, 3:6], my_penguins$species, 1, 5)
 #'
 #'
 #' @export
