@@ -23,3 +23,4 @@ my_lm(my_gapminder$lifeExp ~ my_gapminder$gdpPercap + my_gapminder$continent, da
 
 
 }
+\keyword{inference}

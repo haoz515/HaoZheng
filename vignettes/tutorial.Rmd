@@ -163,7 +163,7 @@ my_plot %>%
 ```{r}
 my_penguins_df <- my_penguins
 my_penguins_df <- na.omit(my_penguins_df)
-test_1 <- my_knn_cv(my_penguins_df[, 3:6], my_penguins_df$species, 1, 5)
+#test_1 <- my_knn_cv(my_penguins_df[, 3:6], my_penguins_df$species, 1, 5) 
 ```
   
 5. A tutorial for `my_rf_cv`
@@ -175,23 +175,23 @@ test_1 <- my_knn_cv(my_penguins_df[, 3:6], my_penguins_df$species, 1, 5)
   * Use a table to display the average CV estimate and the standard deviation of the CV estimates across $k$. Your table should have 3 rows (one for each value of $k$) and 2 columns (one for the mean and the other for the standard deviation).
   * Discuss the results you observe in the boxplots and table. Compare the means and standard deviations of the the different values of $k$ and comment on why you think this is the case.
 ```{r}
-cv_error <- matrix(NA, nrow = 90, ncol = 2)
-cv_error[, 1] <- rep(c(2, 5, 10), each = 30)
-row <- 1
-for(k in c(2, 5, 10)) {
-  for(i in 1:30) {
-    cv_error[row, 2] <- my_rf_cv(k)
-    row <- row + 1
-  }
-}
+# cv_error <- matrix(NA, nrow = 90, ncol = 2)
+# cv_error[, 1] <- rep(c(2, 5, 10), each = 30)
+# row <- 1
+# for(k in c(2, 5, 10)) {
+#   for(i in 1:30) {
+#     cv_error[row, 2] <- my_rf_cv(k)
+#     row <- row + 1
+#   }
+# }
 ```
 ```{r}
-my_df <- data.frame("k" = cv_error[, 1], "mse" = cv_error[, 2])
-my_df %>% 
-  ggplot(aes(x = factor(k), y = mse, fill = factor(k))) +
-  geom_boxplot() +
-  labs(title = "MSE of K folds", x = "Number of Folds", y = "MSE", 
-       fill = "Number of Folds") 
+# my_df <- data.frame("k" = cv_error[, 1], "mse" = cv_error[, 2])
+# my_df %>%
+#   ggplot(aes(x = factor(k), y = mse, fill = factor(k))) +
+#   geom_boxplot() +
+#   labs(title = "MSE of K folds", x = "Number of Folds", y = "MSE",
+#        fill = "Number of Folds")
 ```
   
   

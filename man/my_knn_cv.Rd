@@ -27,3 +27,4 @@ my_knn_cv(my_penguins_df[, 3:6], penguins_df$species, 1, 5)
 
 
 }
+\keyword{inference}
