@@ -65,10 +65,12 @@ devtools::install_github("haoz515/HaoZheng")
 Also, we need to install the following packages to start
 ```{r setup}
 require(HaoZheng)
+library(randomForest)
 library(stringr)
+library(class)
 library(ggplot2)
 library(kableExtra)
-library(dplyr)
+library(dplyr,warn.conflicts = FALSE)
 data("my_gapminder")
 data("my_penguins")
 ```
@@ -161,9 +163,18 @@ my_plot %>%
   * Your explanation(s) should include a general description of what the process of cross-validation is doing and why it is useful.
   
 ```{r}
-my_penguins_df <- my_penguins
-my_penguins_df <- na.omit(my_penguins_df)
-#test_1 <- my_knn_cv(my_penguins_df[, 3:6], my_penguins_df$species, 1, 5) 
+# TODO: my_knn function is wrong for some output
+answer <- matrix(NA, nrow = 10, ncol = 2)
+rownames(answer) <- c(1:10)
+for (i in 1:10) {
+  output <- my_knn_cv(my_penguins_df[,3:6], my_penguins_df$species, i, 5)
+  answer[i, 1] <- output$ce
+  answer[i, 2] <- output$te
+}
+answer <- data.frame("Neighbour's number" = c(1:10), 
+                     "cv misclassification rate" = answer[, 1],
+                     "training misclassification rate" = answer[, 2])
+kable_styling(kable(answer))
 ```
   
 5. A tutorial for `my_rf_cv`
@@ -175,25 +186,29 @@ my_penguins_df <- na.omit(my_penguins_df)
   * Use a table to display the average CV estimate and the standard deviation of the CV estimates across $k$. Your table should have 3 rows (one for each value of $k$) and 2 columns (one for the mean and the other for the standard deviation).
   * Discuss the results you observe in the boxplots and table. Compare the means and standard deviations of the the different values of $k$ and comment on why you think this is the case.
 ```{r}
-# cv_error <- matrix(NA, nrow = 90, ncol = 2)
-# cv_error[, 1] <- rep(c(2, 5, 10), each = 30)
-# row <- 1
-# for(k in c(2, 5, 10)) {
-#   for(i in 1:30) {
-#     cv_error[row, 2] <- my_rf_cv(k)
-#     row <- row + 1
-#   }
-# }
+options(dplyr.summarise.inform = FALSE)
+cv_error <- matrix(NA, nrow = 30 * 3, ncol = 2)
+cv_error[, 1] <- rep(c(2, 5, 10), each = 30)
+row <- 0
+for(k in c(2, 5, 10)) {
+  for(i in 0:29) {
+    row <- row + 1
+    cv_error[row, 2] <- my_rf_cv(k)
+  }
+}
 ```
 ```{r}
-# my_df <- data.frame("k" = cv_error[, 1], "mse" = cv_error[, 2])
-# my_df %>%
-#   ggplot(aes(x = factor(k), y = mse, fill = factor(k))) +
-#   geom_boxplot() +
-#   labs(title = "MSE of K folds", x = "Number of Folds", y = "MSE",
-#        fill = "Number of Folds")
+my_df <- data.frame("mse" = cv_error[, 2], "k" = cv_error[, 1])
+my_df %>%
+  ggplot(aes(x = factor(k), y = mse)) +
+  geom_boxplot() +
+  labs(title = "MSE", x = "Folds number", y = "MSE")
+
+mse_sum <- my_df %>% 
+group_by(k) %>%
+summarise(mean = mean(mse), sd = sd(mse))
+kable_styling(kable(mse_sum))
 ```
-  
   
   
 ### Details
