@@ -27,5 +27,6 @@ Imports:
     stringr,
     dplyr,
     class,
+    tidyr,
     randomForest,
     magrittr

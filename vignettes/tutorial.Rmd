@@ -64,7 +64,8 @@ devtools::install_github("haoz515/HaoZheng")
 ```
 Also, we need to install the following packages to start
 ```{r setup}
-require(HaoZheng)
+#require(HaoZheng)
+library(HaoZheng)
 library(randomForest)
 library(stringr)
 library(class)
