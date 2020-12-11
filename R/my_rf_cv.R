@@ -15,8 +15,8 @@
 #' @export
 my_rf_cv <- function(k){
   # fold and split the data
-  data <- penguins_df %>% select(body_mass_g, bill_length_mm, bill_depth_mm, flipper_length_mm)
-  fold <- sample(rep(1:k, length = nrow(penguins_df)))
+  data <- my_penguins_df %>% select(body_mass_g, bill_length_mm, bill_depth_mm, flipper_length_mm)
+  fold <- sample(rep(1:k, length = nrow(my_penguins_df)))
   data <- data %>% mutate("split" = fold)
   # create the vector to store mse
   mse <- c()

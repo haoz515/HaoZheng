@@ -68,6 +68,7 @@ require(HaoZheng)
 library(stringr)
 library(ggplot2)
 library(kableExtra)
+library(dplyr)
 data("my_gapminder")
 data("my_penguins")
 ```
@@ -139,6 +140,17 @@ exp  <- model.matrix(object, my_gapminder)
 # find the response variable y
 res <- model.response(model) %>% as.matrix()
 ```
+```{r}
+my_lifeExp <- exp %*% lm_1[,1]+ lm_1[,2]
+my_plot <- data.frame("actual" = my_gapminder$lifeExp, "fitted" = my_lifeExp, 
+                      "color" = my_gapminder$continent) 
+my_plot %>%
+  ggplot(aes(x = my_lifeExp, y = my_gapminder$lifeExp, color = color)) +
+  geom_point() +
+  coord_flip() +    
+  labs(title = "Actual vs. Fitted Values", x = "fitted", 
+       y = "actual", color = "Continent") 
+```
 4. A tutorial for `my_knn_cv` using `my_penguins`.
   * Predict output class `species` using covariates `bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, and `body_mass_g`. 
   * Use $5$ -fold cross validation (`k_cv = 5`).
@@ -147,6 +159,13 @@ res <- model.response(model) %>% as.matrix()
   * State which model you would choose based on the training misclassification rates and which model you would choose based on the CV misclassification rates.
   * Discuss which model you would choose in practice and why. 
   * Your explanation(s) should include a general description of what the process of cross-validation is doing and why it is useful.
+  
+```{r}
+my_penguins_df <- my_penguins
+my_penguins_df <- na.omit(my_penguins_df)
+test_1 <- my_knn_cv(my_penguins_df[, 3:6], my_penguins_df$species, 1, 5)
+```
+  
 5. A tutorial for `my_rf_cv`
   * Predict `body_mass_g` using covariates `bill_length_mm`, `bill_depth_mm`, and `flipper_length_mm`. 
   * Iterate through `k` in  `c(2, 5, 10)`:
@@ -155,6 +174,27 @@ res <- model.response(model) %>% as.matrix()
   * Use `ggplot2` with 3 boxplots to display these data in an informative way. There should be a boxplot associated with each value of `k`, representing $30$ simulations each.
   * Use a table to display the average CV estimate and the standard deviation of the CV estimates across $k$. Your table should have 3 rows (one for each value of $k$) and 2 columns (one for the mean and the other for the standard deviation).
   * Discuss the results you observe in the boxplots and table. Compare the means and standard deviations of the the different values of $k$ and comment on why you think this is the case.
+```{r}
+cv_error <- matrix(NA, nrow = 90, ncol = 2)
+cv_error[, 1] <- rep(c(2, 5, 10), each = 30)
+row <- 1
+for(k in c(2, 5, 10)) {
+  for(i in 1:30) {
+    cv_error[row, 2] <- my_rf_cv(k)
+    row <- row + 1
+  }
+}
+```
+```{r}
+my_df <- data.frame("k" = cv_error[, 1], "mse" = cv_error[, 2])
+my_df %>% 
+  ggplot(aes(x = factor(k), y = mse, fill = factor(k))) +
+  geom_boxplot() +
+  labs(title = "MSE of K folds", x = "Number of Folds", y = "MSE", 
+       fill = "Number of Folds") 
+```
+  
+  
   
 ### Details
 
