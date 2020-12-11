@@ -17,8 +17,9 @@ The main data frame \code{gapminder} has 1704 rows and 6 variables:
 
 The supplemental data frame \code{\link{gapminder_unfiltered}} was not
 filtered on \code{year} or for complete data and has 3313 rows.
-
-#' @source \url{http://www.gapminder.org/data/}
+}
+\source{
+\url{http://www.gapminder.org/data/}
 }
 \usage{
 my_gapminder
@@ -48,7 +49,6 @@ gapminder \%>\%
 gapminder \%>\%
   group_by(continent) \%>\%
   summarize(n_obs = n(), n_countries = n_distinct(country))
-  #'
 # by continent, which country experienced the sharpest 5-year drop in
 # life expectancy and what was the drop?
 gapminder \%>\%
