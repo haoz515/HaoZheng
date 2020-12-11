@@ -123,10 +123,25 @@ lm_1
 ```
 From the output, we can see that the coefficient for gdpPercap has positive value 4.45e-4. For a 1 unit increase in gdpPercap, the lifeExp will increase about 4.45e-04.
 
+Here we set up a hypothesis test for the gpdPercap coefficient
+$$H_0: coefficient = 0$$
 
+$$H_a: coefficient \neq 0$$
+with our significance level
+$$ \alpha = 0.05$$
+From the output we have, p value is less than 0.05. As a result, we reject the null hypothesis.
+Here we plot the actual vs Fitted values
+```{r}
+object <- lifeExp ~ gdpPercap + continent
+model <- model.frame(object, my_gapminder)
+# find the explanatory variable x 
+exp  <- model.matrix(object, my_gapminder)
+# find the response variable y
+res <- model.response(model) %>% as.matrix()
+```
 4. A tutorial for `my_knn_cv` using `my_penguins`.
   * Predict output class `species` using covariates `bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, and `body_mass_g`. 
-  * Use $5$-fold cross validation (`k_cv = 5`).
+  * Use $5$ -fold cross validation (`k_cv = 5`).
   * Iterate from `k_nn`$= 1,\ldots, 10$:
     * For each value of `k_nn`, record the training misclassification rate and the CV misclassification rate (output from your function).
   * State which model you would choose based on the training misclassification rates and which model you would choose based on the CV misclassification rates.
