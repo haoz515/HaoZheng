@@ -13,6 +13,7 @@
 #'
 #' @examples
 #' data(my_penguins)
+#' my_penguins <- drop_na(my_penguins)
 #' my_knn_cv(my_penguins[, 3:6], my_penguins$species, 1, 5)
 #'
 #'
@@ -26,9 +27,9 @@ my_knn_cv <- function (train, cl, k_nn, k_cv) {
   # iterate through k times
   for (i in 1:k_cv) {
     # select the rows of train
-    data_train <- data %>% filter(split != i)
+    data_train <- data %>% dplyr::filter(split != i)
     # slect the rows of test
-    data_test <- data %>% filter(split == i)
+    data_test <- data %>% dplyr::filter(split == i)
     data_train_14 <- data_train[,1:4]
     data_test_14 <- data_test[,1:4]
     y_hat <- as.character(knn(data_train_14, data_test_14, data_train$y, k_nn))
