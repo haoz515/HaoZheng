@@ -9,15 +9,17 @@
 #' @return a numeric with the cross-validation error
 #'
 #' @examples
+#' data(my_penguins)
 #' my_rf_cv(5)
 #'
 #'
 #' @export
 my_rf_cv <- function(k){
+  my_penguins <- tidyr::drop_na(my_penguins)
   # fold and split the data
-  data <- my_penguins_df %>% select(body_mass_g, bill_length_mm, bill_depth_mm, flipper_length_mm)
-  fold <- sample(rep(1:k, length = nrow(my_penguins_df)))
-  data <- data %>% mutate("split" = fold)
+  data <- my_penguins %>% dplyr::select(body_mass_g, bill_length_mm, bill_depth_mm, flipper_length_mm)
+  fold <- sample(rep(1:k, length = nrow(my_penguins)))
+  data <- data %>% dplyr::mutate("split" = fold)
   # create the vector to store mse
   mse <- c()
   # iterate through k times
@@ -25,7 +27,9 @@ my_rf_cv <- function(k){
     data_train <- data %>% dplyr::filter(split != i)
     data_test <- data %>% dplyr::filter(split == i)
     # use random forest to predict
-    model <- randomForest(body_mass_g ~ bill_length_mm + bill_depth_mm
+
+    model <- randomForest(body_mass_g ~ bill_length_mm
+                          + bill_depth_mm
                           + flipper_length_mm, data = data_train, ntree = 100)
     prediction <- predict(model, data_test[,-1])
     # store the mse in a vector

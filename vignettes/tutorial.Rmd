@@ -186,6 +186,7 @@ kable_styling(kable(answer))
   * Use a table to display the average CV estimate and the standard deviation of the CV estimates across $k$. Your table should have 3 rows (one for each value of $k$) and 2 columns (one for the mean and the other for the standard deviation).
   * Discuss the results you observe in the boxplots and table. Compare the means and standard deviations of the the different values of $k$ and comment on why you think this is the case.
 ```{r}
+data("my_penguins")
 options(dplyr.summarise.inform = FALSE)
 cv_error <- matrix(NA, nrow = 30 * 3, ncol = 2)
 cv_error[, 1] <- rep(c(2, 5, 10), each = 30)
@@ -198,6 +199,7 @@ for(k in c(2, 5, 10)) {
 }
 ```
 ```{r}
+#data("my_penguins")
 my_df <- data.frame("mse" = cv_error[, 2], "k" = cv_error[, 1])
 my_df %>%
   ggplot(aes(x = factor(k), y = mse)) +

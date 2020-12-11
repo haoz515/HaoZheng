@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' data(my_penguins)
-#' my_penguins <- drop_na(my_penguins)
+#' my_penguins <- tidyr::drop_na(my_penguins)
 #' my_knn_cv(my_penguins[, 3:6], my_penguins$species, 1, 5)
 #'
 #'
@@ -32,11 +32,11 @@ my_knn_cv <- function (train, cl, k_nn, k_cv) {
     data_test <- data %>% dplyr::filter(split == i)
     data_train_14 <- data_train[,1:4]
     data_test_14 <- data_test[,1:4]
-    y_hat <- as.character(knn(data_train_14, data_test_14, data_train$y, k_nn))
+    y_hat <- as.character(class::knn(data_train_14, data_test_14, data_train$y, k_nn))
     class <- c(class, y_hat)
     cv_err[i] = sum(as.numeric(y_hat != as.character(data_test$y))) / l / k_cv
   }
-  y_hat <- as.character(knn(train = train, cl = cl, test = train, k = k_nn))
+  y_hat <- as.character(class::knn(train = train, cl = cl, test = train, k = k_nn))
   # calculate the train error
   train_err <- sum(as.numeric(y_hat != as.character(cl))) / length(cl)
   print(train_err)

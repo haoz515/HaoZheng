@@ -24,6 +24,7 @@ The function predicts output class species using covariates
 }
 \examples{
 data(my_penguins)
+my_penguins <- tidyr::drop_na(my_penguins)
 my_knn_cv(my_penguins[, 3:6], my_penguins$species, 1, 5)
 
 

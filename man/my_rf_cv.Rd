@@ -17,6 +17,7 @@ This function predict output body_mass_g using covariates bill_length_mm,
 bill_depth_mm, and flipper_length_mm
 }
 \examples{
+data(my_penguins)
 my_rf_cv(5)
 
 
