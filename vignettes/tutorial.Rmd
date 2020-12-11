@@ -7,6 +7,12 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 <!--- Begin styling code. --->
 <style type="text/css">
 /* Whole document: */
@@ -57,8 +63,8 @@ Specifically, the vignette should have 5 parts:
 devtools::install_github("haoz515/HaoZheng")
 ```
 Also, we need to install the following packages to start
-```{r}
-library(HaoZheng)
+```{r setup}
+require(HaoZheng)
 library(stringr)
 library(ggplot2)
 library(kableExtra)
