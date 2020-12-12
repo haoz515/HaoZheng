@@ -19,7 +19,7 @@ that greater than t.value
 This fucntion fits a linear model from the two input
 }
 \examples{
-my_lm(my_gapminder$lifeExp ~ my_gapminder$gdpPercap + my_gapminder$continent, data = my_gapminder)
+my_lm(mpg ~ hp + wt, data = mtcars)
 
 
 }

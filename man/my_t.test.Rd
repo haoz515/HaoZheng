@@ -21,9 +21,7 @@ given by \code{alternative} and a numeric p_value
 This fucntion do a t.test with three input parameters
 }
 \examples{
-my_t.test(my_gapminder$lifeExp,"two.sided",60)
-my_t.test(my_gapminder$lifeExp,"less",60)
-my_t.test(my_gapminder$lifeExp,"greater",60)
+my_t.test(c(4.2, 5.2, 6.2, 7.2, 8.2, 9.4, 10.3, 11.3, 14.2), "two.sided", 0)
 
 }
 \keyword{inference}

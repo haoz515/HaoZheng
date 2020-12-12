@@ -1,6 +1,6 @@
 test_that("the output has a correct data type(it should be a table)", {
   expect_is(my_lm(formula = lifeExp ~ gdpPercap + continent,
-                  data = my_gapminder), "table")
+                  data = my_gapminder), "matrix")
 })
 
 test_that("input incorrect throws errort", {
