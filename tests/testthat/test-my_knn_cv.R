@@ -1,5 +1,6 @@
+data("my_penguins")
 test_that("my_knn_cv works properly", {
-  expect_equal(my_knn_cv(my_penguins[, 3:6], my_penguins$species, 5, 5),0.1471471)
+  expect_is(my_knn_cv(my_penguins[, 3:6], my_penguins$species, 5, 5),"list")
 })
 
 test_that("incorrect input throws error", {
