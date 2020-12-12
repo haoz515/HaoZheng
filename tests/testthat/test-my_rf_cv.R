@@ -4,5 +4,5 @@ test_that("my_rf_cv works properly", {
 
 test_that("incorrect input throws error", {
   expect_error(my_rf_cv("string"))
-  expect_error(my_rf_cv(2,4,5,5,6))
+  expect_error(my_rf_cv(4,5,1,"a"))
 })

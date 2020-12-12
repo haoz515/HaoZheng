@@ -1,4 +1,4 @@
-test_that("the output is correct", {
+test_that("my_t.test works properly", {
   expect_is(my_t.test(rnorm(10, 2, 1),"greater", 5), "list")
 })
 
