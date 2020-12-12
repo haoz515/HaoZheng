@@ -1,4 +1,4 @@
-test_that("the output has a correct data type(it should be a table)", {
+test_that("the output has a correct data type", {
   expect_is(my_lm(formula = lifeExp ~ gdpPercap + continent,
                   data = my_gapminder), "matrix")
 })
