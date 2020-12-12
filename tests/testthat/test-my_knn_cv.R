@@ -1,7 +1,8 @@
 data("my_penguins")
 
 test_that("my_knn_cv works properly", {
-  expect_is(my_knn_cv(penguins_df[, 3:6], penguins_df$species, 1, 5),"list")
+  test_1 <- my_knn_cv(penguins_df[, 3:6], penguins_df$species, 1, 5)
+  expect_is(test_1,"list")
 })
 
 test_that("incorrect input throws error", {
