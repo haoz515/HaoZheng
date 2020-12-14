@@ -37,9 +37,11 @@ my_knn_cv <- function (train, cl, k_nn, k_cv) {
     cv_err[i] = sum(as.numeric(y_hat != as.character(data_test$y))) / l / k_cv
   }
   y_hat <- as.character(class::knn(train = train, cl = cl, test = train, k = k_nn))
+
   # calculate the train error
   train_err <- sum(as.numeric(y_hat != as.character(cl))) / length(cl)
-  print(train_err)
+  #print(train_err)
+
   # return the class, cvv_err and the train_err
   # train error is calculated within the function
   # the list of output has three objects
