@@ -6,5 +6,6 @@ test_that("my_t.test works properly", {
 
 test_that("incorrect input throws error", {
   expect_error(my_t.test("stat302"))
+  expect_error(my_t.test("stat302",1,"stat 302"))
 })
 
