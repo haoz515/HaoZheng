@@ -19,25 +19,19 @@
 #'
 #' @export
 
-my_knn_cv <- function (train, cl, k_nn, k_cv) {
+my_knn_cv <- function(train, cl, k_nn, k_cv) {
   l <- length(cl)
   fold <- sample(rep(1:k_cv, length = l))
-  data <- data.frame("x" = train, "y" = cl, "split" = fold)
-  class <- c()
-  cv_err <- rep(NA, k_cv)
-
-  for (i in 1:k_cv) {
+  cv_err <- rep(0, k_cv)
+  for (j in 1:k_cv) {
     data_train <- data %>% dplyr::filter(split != i)
     data_test <- data %>% dplyr::filter(split == i)
     data_train_14 <- data_train[,1:4]
     data_test_14 <- data_test[,1:4]
-    #
-    y_hat <- class::knn(train[data_train_14, ], train[data_test_14, ],
-                        cl[data_train_14], k_nn)
-    cv_err[i] = (sum(y_hat != cl[data_train_14])) / length(data_train_14)
+    y_hat <- knn(train[data_train_14, ], train[data_test_14, ], cl[data_train_14], k_nn)
+    # record the prediction and the misclassification rate
+    cv_err[j] <- (sum(y_hat != cl[data_test_14])) / length(data_test_14)
   }
-  class <- knn(train, train, cl, k_nn)
-  train_err <- sum(as.numeric(y_hat != as.character(cl))) / length(cl)
-  output <- list("Class" = class, "ce" = mean(cv_err), "te" = train_err)
-  return(output)
+  class <- class::knn(train, train, cl, k_nn)
+  lret <- list("class" = class, "cv_err" = mean(cv_err))
 }

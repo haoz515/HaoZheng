@@ -185,18 +185,29 @@ particular well from the age around 65 to 80.
   * Your explanation(s) should include a general description of what the process of cross-validation is doing and why it is useful.
 
 ```{r}
-# create the matrix
-answer <- matrix(NA, nrow = 10, ncol = 2)
-rownames(answer) <- c(1:10)
+#setting up penguins data set
+my_df <- my_penguins
+my_df <- my_df %>%
+          dplyr::select(c(species, bill_length_mm, bill_depth_mm,
+                          flipper_length_mm, body_mass_g))
+my_df$species <- as.character(my_df$species)
+my_df <- na.omit(my_df)
+my_df_class <- my_df %>% dplyr::pull(species)
+
+#calling my_knn_cv
+cv_error_rates <- vector()
+tse_rates <- vector()
 for (i in 1:10) {
-  output <- my_knn_cv(my_penguins_df[,3:6], my_penguins_df$species, i, 5)
-  answer[i, 1] <- output$ce
-  answer[i, 2] <- output$te
+  output <- my_knn_cv(train = my_df, cl = "species", k_nn = i, k_cv = 5)
+  cv_error_rates[i] <- output[[1]]
+  tse_rates[i] <- sum(as.character(output[[2]]) != my_df_class) / 
+                  length(my_df_class)
 }
-answer <- data.frame("Neighbour's number" = c(1:10), 
-                     "cv misclassification rate" = answer[, 1],
-                     "training misclassification rate" = answer[, 2])
-kable_styling(kable(answer))
+#storing cv error rates and tse rates in df
+data_statistics <- data.frame(cv_error_rates = cv_error_rates,
+                              tse_rates = tse_rates)
+#output df 
+data_statistics
 ```
 
 If I only determine based on the CV misclassification rates, I would
