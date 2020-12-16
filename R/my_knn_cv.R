@@ -25,8 +25,8 @@ my_knn_cv <- function(train, cl, k_nn, k_cv) {
   data <- data.frame("x" = train, "y" = cl, "split" = fold)
   cv_err <- rep(0, k_cv)
   for (i in 1:k_cv) {
-    data_train_14 <- data %>% dplyr::filter(split != i)
-    data_test_14 <- data %>% dplyr::filter(split == i)
+    data_train_14 <- which(fold != i)
+    data_test_14 <- which(fold == i)
     y_hat <- knn(train[data_train_14, ], train[data_test_14, ], cl[data_train_14], k_nn)
     # record the prediction and the misclassification rate
     cv_err[i] <- (sum(y_hat != cl[data_test_14])) / length(data_test_14)
