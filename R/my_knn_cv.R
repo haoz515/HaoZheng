@@ -18,17 +18,33 @@
 #'
 #'
 #' @export
-my_knn_cv <- function(train, cl, k_nn, k_cv) {
-  fold <- sample(rep(1:k_cv, length = len))
-  cv_err <- rep(0, k_cv)
-  for (j in 1:k_cv) {
-    data_train_14 <- which(fold != j)
-    data_test_14 <- which(fold == j)
-    ppred <- class::knn(train[data_train_14, ], train[data_test_14, ], cl[data_train_14], k_nn)
-    cv_err[j] <- (sum(ppred != cl[data_test_14])) / length(data_test_14)
+my_knn_cv <- function (train, cl, k_nn, k_cv) {
+  l <- length(cl)
+  fold <- sample(rep(1:k_cv, length = l))
+  data <- data.frame("x" = train, "y" = cl, "split" = fold)
+  class <- c()
+  cv_err <- rep(NA, k_cv)
+  # iterate through k times
+  for (i in 1:k_cv) {
+    # select the rows of train
+    data_train <- data %>% dplyr::filter(split != i)
+    # slect the rows of test
+    data_test <- data %>% dplyr::filter(split == i)
+    data_train_14 <- data_train[,1:4]
+    data_test_14 <- data_test[,1:4]
+    y_hat <- as.character(class::knn(data_train_14, data_test_14, data_train$y, k_nn)) #NOTICE
+    class <- c(class, y_hat)
+    cv_err[i] = sum(as.numeric(y_hat != as.character(data_test$y))) / l / k_cv
   }
-  class <- class::knn(train, train, cl, k_nn)
-  cv_err <- mean(cv_err)
-  lret <- list("class" = class, "cv_err" = cv_err)
-  return(lret)
+  y_hat <- as.character(class::knn(train = train, cl = cl, test = train, k = k_nn))
+
+  # calculate the train error
+  train_err <- sum(as.numeric(y_hat != as.character(cl))) / length(cl)
+  #print(train_err)
+
+  # return the class, cvv_err and the train_err
+  # train error is calculated within the function
+  # the list of output has three objects
+  output <- list("Class" = class, "ce" = mean(cv_err), "te" = train_err)
+  return(output)
 }
