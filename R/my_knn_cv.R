@@ -21,7 +21,7 @@
 
 my_knn_cv <- function(train, cl, k_nn, k_cv) {
   l <- length(cl)
-  fold <- sample(rep(1:k_cv, length = l))
+  fold <- sample(rep(1:k_cv, length = len))
   data <- data.frame("x" = train, "y" = cl, "split" = fold)
   cv_err <- rep(0, k_cv)
   for (i in 1:k_cv) {
