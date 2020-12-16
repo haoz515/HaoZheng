@@ -247,7 +247,10 @@ kable_styling(kable(mse_sum))
   Based on my obseravation, the mean MSE for 10 folds is the lowest. k = 2 is
 the opposite. 10 folds also have the lowest sd and k = 2 has the highest, which
 is consistent with the plot. Also, a higher number of folds always has higher
-accuracy and less mean square error.
+accuracy and less mean square error. When we have a relatively small number of
+of folds, the training's efficiency is good. However, as this number gets
+larger the efficiency is decreasing significantly. This finding is consistent
+with what we learnt from the class(About that image processing).
 
 
 ### Details
