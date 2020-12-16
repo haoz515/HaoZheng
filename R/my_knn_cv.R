@@ -22,11 +22,11 @@
 my_knn_cv <- function(train, cl, k_nn, k_cv) {
   fold <- sample(rep(1:k_cv, length = len))
   cv_err <- rep(0, k_cv)
-  for (i in 1:k_cv) {
-    data_train_14 <- which(fold != i)
-    data_test_14 <- which(fold == i)
-    y_hat <- class::knn(train[data_train_14, ], train[data_test_14, ], cl[data_train_14], k_nn)
-    cv_err[i] <- (sum(y_hat != cl[data_test_14])) / length(data_test_14)
+  for (k in 1:k_cv) {
+    data_train_14 <- which(fold != k)
+    data_test_14 <- which(fold == k)
+    y_hat <- knn(train[data_train_14, ], train[data_test_14, ], cl[data_train_14], k_nn)
+    cv_err[k] <- (sum(y_hat != cl[data_test_14])) / length(data_test_14)
   }
   class <- class::knn(train, train, cl, k_nn)
   return_cv_err <- mean(cv_err)
