@@ -41,10 +41,10 @@ my_knn_cv <- function (train, cl, k_nn, k_cv) {
   # calculate the train error
   train_err <- sum(as.numeric(y_hat != as.character(cl))) / length(cl)
   #print(train_err)
-
+  return_cv_err = mean(cv_err)
   # return the class, cvv_err and the train_err
   # train error is calculated within the function
   # the list of output has three objects
-  output <- list("Class" = class, "ce" = mean(cv_err), "te" = train_err)
+  output <- list("Class" = class, "ce" = return_cv_err, "te" = train_err)
   return(output)
 }
