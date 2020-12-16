@@ -24,13 +24,13 @@ my_t.test <- function(x, alternative, mu) {
     # calculate the degree of freedom
     df <- length - 1
     # alternative hypothesis of less
-    if (alternative == "less") {
+    if (alternative == "greater") {
       p_val = pt(-abs(t_val), df, lower.tail = FALSE)
       return(list("test_stat is " = t_val, "degree of freedom is " = df,
                   "alternative hypothesis: true mean is less than"
                   = mu, "p-value is "= p_val))
       # alternative hypothesis of greater
-    } else if (alternative == "greater") {
+    } else if (alternative == "less") {
       p_val = pt(-abs(t_val), df, lower.tail = TRUE)
       return(list("test_stat is "= t_val, "degree of freedom is "= df,
                   "alternative hypothesis: true mean is greater than"

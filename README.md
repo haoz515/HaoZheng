@@ -5,15 +5,15 @@
 
 ## Use
 
-The vignette demonstrates example usage of all main functions. Please [file an issue](https://github.com/haoz515n/corncob/issues) if you have a request for a tutorial that is not currently included. You can see the vignette by using the following code (note that this requires a TeX installation to view properly):
+The vignette demonstrates example usage of all main functions. Please [file an issue](https://github.com/haoz515/HaoZheng/issues) if you have a request for a tutorial that is not currently included. You can see the vignette by using the following code (note that this requires a TeX installation to view properly):
 
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("haoz515/corncob", build_vignette = TRUE, build_opts = c())
-library(corncob)
-# Use this to view the vignette in the corncob HTML help
-help(package = "corncob", help_type = "html")
+devtools::install_github("haoz515/HaoZheng", build_vignette = TRUE, build_opts = c())
+library(HaoZheng)
+# Use this to view the vignette in the HaoZheng HTML help
+help(package = "HaoZheng", help_type = "html")
 # Use this to view the vignette as an isolated HTML file
-utils::browseVignettes(package = "corncob")
+utils::browseVignettes(package = "HaoZheng")
 ```
