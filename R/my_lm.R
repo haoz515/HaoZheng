@@ -5,7 +5,7 @@
 #' @param formula a formula that is used to do the linear model
 #' @param data the data that is going to be used
 #'
-#' @keywords inference
+#' @keywords inference, prediction
 #' @return a table with estimation, standard error, t.value and probability
 #' that greater than t.value
 #'

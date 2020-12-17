@@ -61,6 +61,7 @@ Specifically, the vignette should have 5 parts:
   * Make sure to include a call to `library()` for your package.
 
   This package contains 4 methods. my_t.test, my_lm, my_knn_cv and my_rf_cv.
+Each of this
 You can install them from github using the code provided below.
 ```{r install, eval = FALSE}
 devtools::install_github("haoz515/HaoZheng")
@@ -97,7 +98,7 @@ my_t.test(my_gapminder$lifeExp, "two.sided", 60)
 The null hypothesis is mu = 60
 t-value, df, p-value and alternative hypothes are provided from the output.
 Due to the reason that  P-value is greater than 0.05,
-so we cannot reject the null hypothesis.
+so we cannot reject the null hypothesis mu = 60.
 
   * Demonstrate a test of the hypothesis
   \begin{align}
@@ -126,7 +127,7 @@ my_t.test(my_gapminder$lifeExp, "greater", 60)
 ```
 t-value, df, p-value and alternative hypothes are provided from the output.
 Due to the reason that  P-value is greater than 0.05,
-so we cannot reject the null hypothesis.
+so we cannot reject the null hypothesis mu = 60.
 
 3. A tutorial for `my_lm`
   * Demonstrate a regression using `lifeExp` as your response variable and `gdpPercap` and `continent` as explanatory variables.
@@ -137,40 +138,45 @@ so we cannot reject the null hypothesis.
   * Interpret the Actual vs. Fitted plot and make a statement on what it tells you about model fit.
 ```{r}
 #using my_lm to fit the values
-lm_1 <- my_lm(lifeExp ~ gdpPercap + continent, data = my_gapminder)
-lm_1
+my_lm(lifeExp ~ gdpPercap + continent, data = my_gapminder)
 ```
-From the output, we can see that the coefficient for gdpPercap has positive value 4.45e-4. For a 1 unit increase in gdpPercap, the lifeExp will increase about 4.45e-04.
+From the output, we can see that the coefficient for gdpPercap has positive
+value 4.45e-4. For a 1 unit increase in gdpPercap, the lifeExp will increase 
+about 4.45e-04.
 
 Here we set up a hypothesis test for the gpdPercap coefficient
 $$H_0: coefficient = 0$$
-
+With alternative hypothesis
 $$H_a: coefficient \neq 0$$
+
 with significance level
 $$ \alpha = 0.05$$
-From the output I have, I reject the null hypothesis and support the alternative hypothes(coefficient is not 0)
+From the output I have, I reject the null hypothesis and support the 
+alternative hypothes (coefficient is not 0)
 
 Here we plot the actual vs Fitted values
 ```{r}
-# set up the data
-object <- lifeExp ~ gdpPercap + continent
-model <- model.frame(object, my_gapminder)
-exp  <- model.matrix(object, my_gapminder)
-res <- model.response(model) %>% as.matrix()
+#store data in model
+model <- lm(lifeExp ~ gdpPercap + continent, my_gapminder)
+#store fitted values 
+fitted <- fitted(model)
+#set up the data frame of fitted and actual
+my_data <- data.frame(actual = my_gapminder$lifeExp, 
+                    fitted = fitted,
+                    continent = my_gapminder$continent)
+#create the plot
+my_plot <- ggplot(data = my_data, aes(x = fitted, 
+                                    y = actual, 
+                                    color = continent)) +
+                geom_point() + coord_flip() +
+                geom_abline(slope = 1, intercept = 0, 
+                                    col = "red") +
+                labs(x = "Fitted Values", y = "Actual Values", 
+                              title = "Actual vs Fitted")
+                
+my_plot
 ```
-```{r}
-# plot actual vs fitted
-my_lifeExp <- exp %*% lm_1[,1]+ lm_1[,2]
-my_plot <- data.frame("actual" = my_gapminder$lifeExp, "fitted" = my_lifeExp,
-                      "color" = my_gapminder$continent)
-my_plot %>%
-  ggplot(aes(x = my_lifeExp, y = my_gapminder$lifeExp, color = color)) +
-  geom_abline(slope = 1, intercept = 0, col = "black") +
-  geom_point() +
-  coord_flip() +
-  labs(title = "Actual vs. Fitted Values", x = "fitted",
-       y = "actual", color = "Continent")
-```
+
 
   Overall the fit looks ok. We can see a trend in the data. The line fits
 particular well from the age around 65 to 80.
@@ -194,19 +200,29 @@ for (i in 1:10) {
   answer[i, 2] <- output$te
 }
 answer <- data.frame("Neighbour's number" = c(1:10), 
-                     "cv misclassification rate" = answer[, 1],
-                     "training misclassification rate" = answer[, 2])
+                     "cv mis_class rate" = answer[, 1],
+                     "training mis_class rate" = answer[, 2])
 kable_styling(kable(answer))
 ```
 
 If I only determine based on the CV misclassification rates, I would
-choose knn = 1, because it has a  training set error of 0.However, I would not
-determine only based on CV and I would choose knn = 5, because it provides
-more information and more accurate than knn = 1.
+choose knn = 1, because it has a  training set error of 0 and a low cv
+misclassification rate.Also if I choose based on the training one, I will
+still choose knn = 1, because it has a "0" with the training misclassicication
+rate.
   
-The cross validation is 
+However, in real life or in other words, in practice, I would not
+determine only based on CV and I would choose knn = 5, because it provides
+more information and more accurate than knn = 1. In real life,
+accuracy is more important.
+  
+The cross-validation is basically any of various similar model validation 
+techniques for assessing how the results of a statistical analysis will 
+generalize to an independent data set. It is mainly used in settings 
+where the goal is prediction, and one wants to estimate how accurately a 
+predictive model will perform in practice. 
+Source:https://en.wikipedia.org/wiki/Cross-validation_(statistics)
 
-In short, the cross
 
 5. A tutorial for `my_rf_cv`
   * Predict `body_mass_g` using covariates `bill_length_mm`, `bill_depth_mm`, and `flipper_length_mm`.
@@ -220,7 +236,7 @@ In short, the cross
 # set up the data we need for fr_cv
 #data("my_penguins")
 options(dplyr.summarise.inform = FALSE)
-cv_error <- matrix(NA, nrow = 30 * 3, ncol = 2)
+cv_error <- matrix(NA, nrow = 90, ncol = 2)
 cv_error[, 1] <- rep(c(2, 5, 10), each = 30)
 row <- 0
 for(k in c(2, 5, 10)) {
@@ -232,22 +248,22 @@ for(k in c(2, 5, 10)) {
 ```
 ```{r}
 #create the ggplot
-my_df <- data.frame("mse" = cv_error[, 2], "k" = cv_error[, 1])
-my_df %>%
+my_data <- data.frame("mse" = cv_error[, 2], "k" = cv_error[, 1])
+my_data %>%
   ggplot(aes(x = factor(k), y = mse)) +
   geom_boxplot() +
   labs(title = "MSE", x = "Folds number", y = "MSE")
 
-mse_sum <- my_df %>%
+mse_sum <- my_data %>%
 group_by(k) %>%
 summarise(mean = mean(mse), sd = sd(mse))
 kable_styling(kable(mse_sum))
 ```
 
   Based on my obseravation, the mean MSE for 10 folds is the lowest. k = 2 is
-the opposite. 10 folds also have the lowest sd and k = 2 has the highest, which
-is consistent with the plot. Also, a higher number of folds always has higher
-accuracy and less mean square error. When we have a relatively small number of
+the opposite( the largest). 10 folds also have the lowest sd and k = 2 has the 
+highest, which is consistent with the plot. Also, a higher number of folds always 
+has higher accuracy and less mean square error. When we have a relatively small number of
 of folds, the training's efficiency is good. However, as this number gets
 larger the efficiency is decreasing significantly. This finding is consistent
 with what we learnt from the class(About that image processing).

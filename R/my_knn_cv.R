@@ -7,7 +7,7 @@
 #' @param k_nn a numeric value that  specify the quantity of neighbours
 #' @param k_cv a numeric value specify the number of folding
 #'
-#' @keywords inference
+#' @keywords Prediction
 #' @return a table with estimation, standard error, t.value and probability
 #' that greater than t.value
 #'
